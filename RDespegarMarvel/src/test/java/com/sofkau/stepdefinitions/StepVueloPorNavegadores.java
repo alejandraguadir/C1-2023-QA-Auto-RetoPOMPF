@@ -9,6 +9,9 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 
 public class StepVueloPorNavegadores extends WebUI {
+    /**
+     * stepDefinitions de vuelo con Chrome y Edge
+     */
 
     public static Logger LOGGER = Logger.getLogger(String.valueOf(StepVueloPorNavegadores.class));
 

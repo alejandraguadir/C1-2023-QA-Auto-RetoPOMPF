@@ -15,6 +15,9 @@ import org.junit.jupiter.api.Assertions;
 import static io.restassured.RestAssured.when;
 
 public class StepHistorias extends MarvelHistoriaSetup {
+    /**
+     * stepDefinitions del servicio de historias por comic
+     */
     public static final Logger LOGGER = Logger.getLogger(StepHistorias .class);
     private Response response;
     String url = baseURL + endpoint + "?apikey=" + apiKey + "&ts=" + timestamp + "&hash=" + hash;
@@ -42,6 +45,8 @@ public class StepHistorias extends MarvelHistoriaSetup {
             LOGGER.info(data);
             Assertions.assertEquals("Alpha Flight (2004) #2", title);
             Assertions.assertEquals(response.getStatusCode(), 200);
+            LOGGER.info("Prueba exitosa" );
+
         } catch (ParseException e) {
             LOGGER.warn(e.getMessage());
             Assertions.fail();

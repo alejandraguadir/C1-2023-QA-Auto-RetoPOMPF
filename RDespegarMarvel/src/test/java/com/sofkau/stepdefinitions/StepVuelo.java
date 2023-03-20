@@ -9,6 +9,10 @@ import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 
 public class StepVuelo extends WebUI {
+    /**
+     * stepDefinitions de vuelo por navegador Chrome
+     */
+
        public static Logger LOGGER = Logger.getLogger(String.valueOf(StepVuelo.class));
 
     @Given("que debo llevar tres personas en el viaje por {string}")

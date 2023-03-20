@@ -9,7 +9,7 @@ import static com.sofkau.util.Log4j.LOG4J_PROPERTIES_FILE_PATH;
 public class MarvelHistoriaIdSetup {
     
     protected static String baseURL = "https://gateway.marvel.com/v1/public/";
-    protected static int storiesID = 19947;
+    protected static String storiesID = "19947";
     protected static String endpoint = "stories/" ;
     protected static String apiKey = "34718a01c54fead5741ff10ad28dd1a4";
     protected static String timestamp = "1";

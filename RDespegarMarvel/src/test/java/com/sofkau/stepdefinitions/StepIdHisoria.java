@@ -13,8 +13,12 @@ import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Assertions;
 
 import static io.restassured.RestAssured.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StepIdHisoria extends MarvelHistoriaIdSetup {
+    /**
+     * stepDefinitions del servicio de historias por Id
+     */
     public static final Logger LOGGER = Logger.getLogger(StepHistorias .class);
     private Response response;
     String url = baseURL + endpoint + storiesID + "?apikey=" + apiKey + "&ts=" + timestamp + "&hash=" + hash;
@@ -40,7 +44,7 @@ public class StepIdHisoria extends MarvelHistoriaIdSetup {
             JSONObject firstResult = (JSONObject) results.get(0);
             String title = (String) firstResult.get("title");
             LOGGER.info(data);
-            Assertions.assertEquals("Cover #19947", title);
+            assertEquals("Cover #19947", title);
 
 
 
@@ -57,30 +61,33 @@ public class StepIdHisoria extends MarvelHistoriaIdSetup {
     public void queSoyUnUsuarioDeLasHistoriasDeMarvel() {
         generalSetup();
     }
-    @When("solicito obtener las historias por id {int}")
-    public void solicitoObtenerLasHistoriasPorId(Integer storiesID ) {
-        response = when().get(baseURL + endpoint + storiesID + "?apikey=" + apiKey + "&ts=" + timestamp + "&hash=" + hash);
+
+    @When("solicito obtener las historias por id {string}")
+    public void solicitoObtenerLasHistoriasPorId(String id) {
+        response = when().get(baseURL + endpoint + id + "?apikey=" + apiKey + "&ts=" + timestamp + "&hash=" + hash);
 
     }
-    @Then("retornara la historia por id")
-    public void retornaraLaHistoriaPorId() {
 
+    @Then("retornara la historia por {string}")
+    public void retornaraLaHistoriaPor(String id) {
         try {
+
             responseBody = (JSONObject) parser.parse(response.getBody().asString());
-            JSONObject data = (JSONObject) responseBody.get("data");
-            JSONArray results = (JSONArray) data.get("results");
-            JSONObject firstResult = (JSONObject) results.get(0);
-            String title = (String) firstResult.get("title");
-            LOGGER.info(data);
-            Assertions.assertEquals("Cover #19947", title);
-
-
+            Assertions.assertEquals(200,response.getStatusCode());
+            assertEquals("Ok", responseBody.get("status"));
+            JSONObject dataObject = (JSONObject) responseBody.get("data");
+            assertEquals(1L, dataObject.get("total"));
+            JSONArray results = (JSONArray) dataObject.get("results");
+            JSONObject jsonObject = (JSONObject) results.get(0);
+            assertEquals(id, jsonObject.get("id").toString());
+            LOGGER.info("Prueba exitosa: id esperado= " + id + " id actual= " + jsonObject.get("id") );
 
         } catch (ParseException e) {
             LOGGER.warn(e.getMessage());
             Assertions.fail();
         }
     }
+
 
 
 

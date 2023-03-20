@@ -13,9 +13,10 @@ Feature: Obtener lista de historias por Id
   Scenario Outline: obtener lista de historias por id
     Given que soy un usuario de las historias de marvel
     When solicito obtener las historias por id <id>
-    Then retornara la historia por id
+    Then retornara la historia por <id>
 
     Examples:
-      |id|
-      |12 |
-      |12 |
+      | id       |
+      | "1240"   |
+      | "3457"   |
+      | "1e9947" |
